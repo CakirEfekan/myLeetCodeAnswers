@@ -1,0 +1,42 @@
+class Solution {
+     int currentPointer;
+     int firstPointer;
+     int lastPointer;
+     boolean exist = false;
+     int targetPosition = -1;
+    public int search(int[] nums, int target) {
+        firstPointer = 0;
+        lastPointer = nums.length - 1;
+        while(exist == false && lastPointer - firstPointer >1){
+            calculateCurrentPointer();
+            if(nums[currentPointer] == target){
+                exist = true;
+                targetPosition = currentPointer;
+            }
+            else if(nums[currentPointer] < target){
+                firstPointer = currentPointer;
+            }
+            else {
+                lastPointer = currentPointer;
+            }
+        }
+        if(exist == false && lastPointer - firstPointer == 1){
+            if(nums[lastPointer] == target){
+                targetPosition = lastPointer;
+            }
+            else if(nums[firstPointer] == target){
+                targetPosition = firstPointer;
+            }
+        }
+        return targetPosition;
+ 
+    }
+    public void calculateCurrentPointer(){
+        if((firstPointer + lastPointer)%2 != 0){
+            currentPointer = 1+(firstPointer + lastPointer)/2;
+        }
+        else{
+             currentPointer = (firstPointer + lastPointer)/2;
+        }
+    }
+}
